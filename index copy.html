@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head class="h-full">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=Vur tutorial, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="h-full grid place-items-center">
+    <div id="app">
+      <section class="mt-8">
+        <h2 class="font-bold mb-2" v-show="unCompletedAssigments.length">
+          In progress
+        </h2>
+
+        <ul>
+          <li v-for="assigment in unCompletedAssigments" :key="assigment.id">
+            <label>
+              {{ assigment.name }}
+              <input v-model="assigment.completed" type="checkbox" />
+            </label>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="font-bold mb-2" v-show="completedAssigments.length">
+          Completed
+        </h2>
+        <ul>
+          <li v-for="assigment in completedAssigments" :key="assigment.id">
+            <label>
+              {{ assigment.name }}
+              <input v-model="assigment.completed" type="checkbox" />
+            </label>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <script>
+      let app = {
+        data() {
+          return {
+            assigments: [
+              { name: "finished project 1", completed: false, id: 1 },
+              { name: "finished project 2", completed: false, id: 2 },
+              { name: "finished project 3", completed: false, id: 3 },
+            ],
+          };
+        },
+        computed: {
+          completedAssigments() {
+            return this.assigments.filter((assigment) => assigment.completed);
+          },
+          unCompletedAssigments() {
+            return this.assigments.filter((assigment) => !assigment.completed);
+          },
+        },
+      };
+
+      Vue.createApp(app).mount("#app");
+    </script>
+  </body>
+</html>
